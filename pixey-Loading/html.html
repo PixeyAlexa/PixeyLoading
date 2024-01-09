@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial;
+  font-size: 17px;
+  background-color: #111; /* Set background color for better contrast */
+}
+
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
+}
+
+#myAudio {
+  display: flex; /* Hide the audio element */
+}
+
+.logo {
+  position: fixed;
+  top: 25%;
+  left: 80%;
+  width: 16%;
+  height: 35%;
+  filter: drop-shadow(5px 5px 5px hsl(32, 100%, 50%));
+  transition: all 0.5s; /* Add transition for smooth movement */
+}
+
+.logo:hover {
+  top: 50%;
+  left: 50%;
+  width: 24%;
+  height: 38%;
+  filter: drop-shadow(5px 5px 5px hsl(32, 100%, 50%));
+}
+
+/* Add a class to move the logo to the center dynamically */
+.logo.centered {
+  top: 23%;
+  left: 38%;
+  width: 26%;
+  height: 60%;
+  filter: drop-shadow(5px 5px 5px hsl(32, 100%, 50%));
+}
+
+.content {
+  position: fixed;
+  top: 82%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}
+.content {
+  position: fixed;
+  top: 82%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}
+.loading-bar {
+  position: relative;
+  height: 15px; /* Increased height for text */
+  background: linear-gradient(45deg, #FFAC1C, #ffffff, #FFAC1C);
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px #FFAC1C;
+  opacity: 150%;
+1
+}
+
+.bar {
+  width: 0;
+  opacity: 105%;
+  height: 100%;
+  background: linear-gradient(45deg, #ffffff, #FFAC1C, hwb(0 0% 1%));
+  animation: progress 120s ease-out forwards, shimmer 1s infinite;
+  
+  
+}
+
+.text {
+  position: absolute;
+  top: 85%;
+  left: 5%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-weight: bold;
+  transform: translateX(-50%);
+  animation: blink 3s infinite;
+}
+
+
+.admin-info {
+  position: fixed;
+  top: 10%;
+  left: 3%;
+  width: 50%;
+  padding: 10px;
+  font-size: 70%;
+  font-style:normal;
+  font-family: Anton;
+  /* background: rgba(255, 255, 255, 0.1);
+  border-radius: 0%;
+  box-shadow: 0 0 10px #FFAC1C; */
+  filter: drop-shadow(5px 5px 5px hsl(32, 100%, 50%));
+
+}
+
+.developer-info {
+  position: fixed;
+  top: 30%;
+  left: 3%;
+  width: 15%;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 0 10px #FFAC1C;
+  margin-bottom: 20px;
+}
+
+
+.staff-info {
+  position: fixed;
+  top: 30%;
+  left: 20%;
+  width: 15%;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 0 10px #FFAC1C;
+  margin-bottom: 20px;
+}
+
+.admin-info h2,
+.developer-info h2,
+.staff-info h2 {
+  color: #fff;
+  font-size: 20px;
+}
+
+.admin-info p,
+.developer-info p,
+.staff-info p {
+  color: #fff;
+}
+    /* Your existing styles */
+
+    .user-info {
+      position: fixed;
+      top: 5%;
+      right: 3%;
+      display: flex;
+      align-items: center;
+      color: #fff;
+    }
+
+    .user-info img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    label[for="volumeControl"] {
+  color: #fff;
+  margin-left: 10px;
+}
+
+@keyframes cursor {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #fff;
+  }
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes progress {
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200%;
+  }
+  100% {
+    background-position: 200%;
+  }
+}
+
+#myBtn {
+  position: fixed;
+  top: 88%;
+  left: 90%;
+  width: 150px;
+  font-size: 18px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 0 10px #FFAC1C;
+  color: #fff;
+  cursor: pointer;
+}
+
+#myBtn:hover {
+  background: #ddd;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 0 10px #FFAC1C;
+  color: #FFAC1C;
+}
+
+#myBtn2 {
+  position: fixed;
+  top: 88%;
+  left: 78%;
+  width: 200px;
+  font-size: 18px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 0 10px #FFAC1C;
+  color: #fff;
+  cursor: pointer;
+}
+
+#myBtn2:hover {
+  background: #ddd;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 0 10px #FFAC1C;
+  color: #FFAC1C;
+}
+</style>
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .snowflake {
+    position: absolute;
+    background: #fff;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(100vh);
+    }
+  }
+</style>
+</head>
+<body>
+
+  <audio autoplay loop id="myAudio">
+    <source src="background.mp3" type="audio/mp3">
+    Your browser does not support HTML5 audio.
+  
+    <!-- Volume control input -->
+    <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="1" onchange="updateVolume()">
+    <label for="volumeControl">Volume</label>
+  </audio>
+
+<video autoplay muted loop id="myVideo">
+  <source src="rain.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+
+<div class="content">
+  <h1><p style="font-family:Anton">FREE LIFE Roleplay</p></h1>
+
+  <div class="loading-bar">
+    <div class="bar"></div>
+  </div><br>
+  <div class="text">Connecting...</div>
+  <!-- <p>RP (Role Play)- reproduction by people or characters of actions of any story, both real and fictional. When you play on RP project you have to behave like your IC character and play roleplay situations. If you just registered and joined city you are a law-abiding citizen. This is where you journey starts and you pick which road you will go with. You can become whoever you want to whether a criminal or a state employee it is completely up to you. If you got bored of it you can become a leader.</p> -->
+
+</div>
+
+  <!-- User info section -->
+  <div class="user-info" id="userInfo">
+    <!-- User image and name will be added here dynamically -->
+  </div>
+
+<div class="admin-info">
+  <font size="10" color="white">Today is good, Tomorrow will be even better .</font>
+</div>
+
+<div class="developer-info">
+  <h2><p style="font-family:Anton">Rules</p></h2>
+  <p>Players should never focus on aspects of gameplay, or “winning” that gameplay, to detriment of roleplay. This can include but is not limited to:</p>
+</div>
+
+<div class="staff-info">
+  <h2><p style="font-family:Anton">Updates</p></h2>
+  <p>- Coming soon new mechanic shop for paltiobay.</p>
+  <p>- Coming soon new witewidows job set.</p>
+</div>
+
+<img src="logo.png" alt="Your Logo" class="logo" id="logo">
+<button id="myBtn" onclick="myFunction()">Pause</button>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const numberOfSnowflakes = 50;
+
+    for (let i = 0; i < numberOfSnowflakes; i++) {
+      createSnowflake();
+    }
+
+    function createSnowflake() {
+      const snowflake = document.createElement("div");
+      snowflake.className = "snowflake";
+      document.body.appendChild(snowflake);
+
+      const initialPositionX = Math.random() * window.innerWidth;
+      const initialPositionY = Math.random() * window.innerHeight;
+      snowflake.style.left = `${initialPositionX}px`;
+      snowflake.style.top = `${initialPositionY}px`;
+
+      const animationDuration = Math.random() * 3 + 2;
+      snowflake.style.animationDuration = `${animationDuration}s`;
+
+      snowflake.addEventListener("animationiteration", function() {
+        snowflake.style.left = `${Math.random() * window.innerWidth}px`;
+        snowflake.style.top = `${-10}px`;
+      });
+    }
+  });
+</script>
+<script>
+var audio = document.getElementById("myAudio");
+var volumeControl = document.getElementById("volumeControl");
+
+// Set initial volume
+audio.volume = volumeControl.value;
+
+// Update volume when the slider is changed
+function updateVolume() {
+  audio.volume = volumeControl.value;
+}
+</script>
+<script>
+var video = document.getElementById("myVideo");
+var audio = document.getElementById("myAudio");
+var btn = document.getElementById("myBtn");
+var logo = document.getElementById("logo");
+
+function myFunction() {
+  if (video.paused) {
+    video.play();
+    audio.play();
+    btn.innerHTML = "Pause";
+  } else {
+    video.pause();
+    audio.pause();
+    btn.innerHTML = "Play";
+  }
+}
+
+// Add event listeners for logo hover and mouse leave
+logo.addEventListener("mouseover", function() {
+  // Add the 'centered' class to move the logo to the center
+  logo.classList.add("centered");
+});
+
+logo.addEventListener("mouseleave", function() {
+  // Remove the 'centered' class to return the logo to its original location
+  logo.classList.remove("centered");
+});
+</script>
+<script>
+  var isMouseVisible = true;
+  var timeout;
+  
+  document.addEventListener("mousemove", function() {
+    if (!isMouseVisible) {
+      document.body.style.cursor = "default";
+      isMouseVisible = true;
+    }
+  
+    // Clear the previous timeout and set a new one to hide the cursor after 3 seconds
+    clearTimeout(timeout);
+    timeout = setTimeout(function() {
+      document.body.style.cursor = "none";
+      isMouseVisible = false;
+    }, 3000);
+  });
+  
+  // Add this function to show the cursor when a button is clicked
+  function showCursor() {
+    document.body.style.cursor = "default";
+    isMouseVisible = true;
+  }
+  </script>
+
+</body>
+</html>
